@@ -3,5 +3,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_task">Add a new task</string>
+    <string name="add_edit_fragment">AddEditFragment</string>
+    <string name="task_title">Task Title</string>
+    <string name="save">Save</string>
 
 </resources>

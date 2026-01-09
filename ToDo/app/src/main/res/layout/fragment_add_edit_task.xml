@@ -9,6 +9,19 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="AddEditFragment" />
+        android:text="@string/add_edit_fragment" />
+
+    <EditText
+        android:id="@+id/editTextTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/task_title"/>
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/save"/>
+
 
 </FrameLayout>

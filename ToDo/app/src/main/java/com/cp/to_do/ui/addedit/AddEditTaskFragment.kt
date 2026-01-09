@@ -1,60 +1,66 @@
 package com.cp.to_do.ui.addedit
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.cp.to_do.R
+import com.cp.to_do.data.local.TaskDatabase
+import com.cp.to_do.data.model.Task
+import com.cp.to_do.data.repository.TaskRepository
+import com.cp.to_do.viewmodel.TaskViewModel
+import com.cp.to_do.viewmodel.TaskViewModelFactory
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [AddEditTaskFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AddEditTaskFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var taskViewModel: TaskViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    ): View {
         return inflater.inflate(R.layout.fragment_add_edit_task, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AddEditTaskFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AddEditTaskFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val app = requireActivity().application
+        val dao = TaskDatabase.getDatabase(app).taskDao()
+        val repository = TaskRepository(dao)
+        val factory = TaskViewModelFactory(repository)
+
+        taskViewModel = ViewModelProvider(requireActivity(), factory)[TaskViewModel::class.java]
+
+        val titleInput = view.findViewById<EditText>(R.id.editTextTitle)
+        val saveBtn = view.findViewById<Button>(R.id.btnSave)
+
+        val taskId = arguments?.getInt("taskId", -1) ?: -1
+
+        saveBtn.setOnClickListener {
+            val title = titleInput.text.toString()
+
+            if (title.isEmpty()) return@setOnClickListener
+
+            if (taskId == -1) {
+                taskViewModel.addTask(
+                    Task(title = title, description = "", isCompleted = false)
+                )
+
+            } else {
+                taskViewModel.updateTask(
+                    Task(id = taskId, title = title, description = "", isCompleted = false)
+                )
+
             }
+
+            findNavController().navigateUp()
+        }
     }
 }
