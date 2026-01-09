@@ -5,12 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cp.to_do.R
+import com.cp.to_do.data.local.TaskDatabase
+import com.cp.to_do.data.repository.TaskRepository
 import com.cp.to_do.viewmodel.TaskViewModel
+import com.cp.to_do.viewmodel.TaskViewModelFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class TaskListFragment : Fragment() {
@@ -27,6 +31,14 @@ class TaskListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val app = requireActivity().application
+        val dao = TaskDatabase.getDatabase(app).taskDao()
+        val repository = TaskRepository(dao)
+        val factory = TaskViewModelFactory(repository)
+
+        viewModel = ViewModelProvider(requireActivity(), factory)[TaskViewModel::class.java]
+
 
         val fab: FloatingActionButton = view.findViewById(R.id.addTaskFab)
 
