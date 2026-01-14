@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="#f1faee"
         android:padding="16dp">
 
         <EditText
@@ -16,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/task_title"
+            android:fontFamily="sans-serif-condensed"
             android:inputType="text"/>
 
         <EditText
@@ -23,6 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/task_description"
+            android:fontFamily="sans-serif-condensed"
             android:inputType="textMultiLine"
             android:minLines="2"
             android:gravity="top"/>
@@ -31,6 +34,11 @@
             android:id="@+id/btnSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#e9edc9"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/black"
             android:text="@string/save"/>
 
     </LinearLayout>

@@ -8,5 +8,6 @@
     <string name="save">Save</string>
     <string name="task_description">Task Description</string>
     <string name="delete_task">Delete Task</string>
+    <string name="my_tasks">My Tasks</string>
 
 </resources>
