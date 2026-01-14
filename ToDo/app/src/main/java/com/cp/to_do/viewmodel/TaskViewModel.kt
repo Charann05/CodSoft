@@ -28,4 +28,7 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
             repository.delete(task)
         }
     }
+
+    fun getTaskById(id: Int) = repository.getTaskById(id)
+
 }

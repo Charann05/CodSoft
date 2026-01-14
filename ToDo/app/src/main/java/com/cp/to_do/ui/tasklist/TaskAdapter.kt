@@ -9,7 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cp.to_do.R
 import com.cp.to_do.data.model.Task
 
-class TaskAdapter : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
+class TaskAdapter(
+    private val onItemClick: (Task) -> Unit,
+    private val onCheckBoxClick: (Task, Boolean) -> Unit
+) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
+
 
     private var tasks = emptyList<Task>()
 
@@ -17,7 +21,24 @@ class TaskAdapter : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
         val title: TextView = itemView.findViewById(R.id.textTitle)
         val description: TextView = itemView.findViewById(R.id.textDescription)
         val checkBox: CheckBox = itemView.findViewById(R.id.checkCompleted)
+
+        init {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onItemClick(tasks[position])
+                }
+            }
+
+            checkBox.setOnCheckedChangeListener { _, isChecked ->
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onCheckBoxClick(tasks[position], isChecked)
+                }
+            }
+        }
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val view = LayoutInflater.from(parent.context)

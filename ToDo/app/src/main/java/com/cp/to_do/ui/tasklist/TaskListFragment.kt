@@ -47,7 +47,17 @@ class TaskListFragment : Fragment() {
         }
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewTasks)
-        val adapter = TaskAdapter()
+
+        val adapter = TaskAdapter(
+            onItemClick = { task ->
+                val bundle = Bundle().apply { putInt("taskId", task.id) }
+                findNavController().navigate(R.id.addEditTaskFragment, bundle)
+            },
+            onCheckBoxClick = { task, isChecked ->
+                val updatedTask = task.copy(isCompleted = isChecked)
+                viewModel.updateTask(updatedTask)
+            }
+        )
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
@@ -55,6 +65,8 @@ class TaskListFragment : Fragment() {
             viewModel.allTasks.collect { taskList -> adapter.submitList(taskList)
             }
         }
+
+
 
     }
 }

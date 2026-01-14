@@ -1,5 +1,6 @@
 package com.cp.to_do.data.local
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.cp.to_do.data.model.Task
 import kotlinx.coroutines.flow.Flow
@@ -18,4 +19,8 @@ interface TaskDao {
 
     @Query("SELECT * FROM tasks ORDER BY id DESC")
     fun getAllTasks(): Flow<List<Task>>
+
+    @Query("SELECT * FROM tasks WHERE id = :id")
+    fun getTaskById(id: Int): LiveData<Task>
+
 }

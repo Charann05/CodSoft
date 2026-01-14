@@ -39,23 +39,35 @@ class AddEditTaskFragment : Fragment() {
         taskViewModel = ViewModelProvider(requireActivity(), factory)[TaskViewModel::class.java]
 
         val titleInput = view.findViewById<EditText>(R.id.editTextTitle)
+        val descriptionInput = view.findViewById<EditText>(R.id.editTextDescription)
+
         val saveBtn = view.findViewById<Button>(R.id.btnSave)
 
         val taskId = arguments?.getInt("taskId", -1) ?: -1
+        if (taskId != -1) {
+            taskViewModel.getTaskById(taskId).observe(viewLifecycleOwner) { task ->
+                task?.let {
+                    titleInput.setText(it.title)
+                    descriptionInput.setText(it.description)
+                }
+            }
+        }
+
 
         saveBtn.setOnClickListener {
             val title = titleInput.text.toString()
+            val description = descriptionInput.text.toString()
 
             if (title.isEmpty()) return@setOnClickListener
 
             if (taskId == -1) {
                 taskViewModel.addTask(
-                    Task(title = title, description = "", isCompleted = false)
+                    Task(title = title, description = description, isCompleted = false)
                 )
 
             } else {
                 taskViewModel.updateTask(
-                    Task(id = taskId, title = title, description = "", isCompleted = false)
+                    Task(id = taskId, title = title, description = description, isCompleted = false)
                 )
 
             }
