@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cp.to_do.R
@@ -11,7 +12,8 @@ import com.cp.to_do.data.model.Task
 
 class TaskAdapter(
     private val onItemClick: (Task) -> Unit,
-    private val onCheckBoxClick: (Task, Boolean) -> Unit
+    private val onCheckBoxClick: (Task, Boolean) -> Unit,
+    private val onDeleteClick: (Task) -> Unit
 ) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
 
@@ -21,6 +23,8 @@ class TaskAdapter(
         val title: TextView = itemView.findViewById(R.id.textTitle)
         val description: TextView = itemView.findViewById(R.id.textDescription)
         val checkBox: CheckBox = itemView.findViewById(R.id.checkCompleted)
+
+        val deleteBtn: ImageButton = itemView.findViewById(R.id.btnDelete)
 
         init {
             itemView.setOnClickListener {
@@ -34,6 +38,13 @@ class TaskAdapter(
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     onCheckBoxClick(tasks[position], isChecked)
+                }
+            }
+
+            deleteBtn.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onDeleteClick(tasks[position])
                 }
             }
         }

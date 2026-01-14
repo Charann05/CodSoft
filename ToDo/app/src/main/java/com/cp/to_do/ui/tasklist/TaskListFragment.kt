@@ -56,6 +56,9 @@ class TaskListFragment : Fragment() {
             onCheckBoxClick = { task, isChecked ->
                 val updatedTask = task.copy(isCompleted = isChecked)
                 viewModel.updateTask(updatedTask)
+            },
+            onDeleteClick = { task ->
+                viewModel.deleteTask(task) // deletes from DB
             }
         )
         recyclerView.adapter = adapter
