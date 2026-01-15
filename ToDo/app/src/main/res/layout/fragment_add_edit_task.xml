@@ -30,6 +30,24 @@
             android:minLines="2"
             android:gravity="top"/>
 
+        <Spinner
+            android:id="@+id/prioritySpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"/>
+
+        <Button
+            android:id="@+id/btnDueDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/select_due_date"
+            android:backgroundTint="#e9edc9"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="8dp"/>
+
         <Button
             android:id="@+id/btnSave"
             android:layout_width="match_parent"

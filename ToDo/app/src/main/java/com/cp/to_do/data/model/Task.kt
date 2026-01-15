@@ -10,5 +10,7 @@ data class Task(
 
     val title: String,
     val description: String,
-    val isCompleted: Boolean = false
+    val isCompleted: Boolean = false,
+    val dueDate: Long? = null,
+    val priority: Int = 1
 )

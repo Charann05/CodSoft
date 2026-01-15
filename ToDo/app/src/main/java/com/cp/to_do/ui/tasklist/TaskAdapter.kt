@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cp.to_do.R
 import com.cp.to_do.data.model.Task
+import java.util.Calendar
 
 class TaskAdapter(
     private val onItemClick: (Task) -> Unit,
@@ -25,6 +26,9 @@ class TaskAdapter(
         val checkBox: CheckBox = itemView.findViewById(R.id.checkCompleted)
 
         val deleteBtn: ImageButton = itemView.findViewById(R.id.btnDelete)
+        val priority: TextView = itemView.findViewById(R.id.textPriority)
+        val dueDate: TextView = itemView.findViewById(R.id.textDueDate)
+
 
         init {
             itemView.setOnClickListener {
@@ -62,6 +66,18 @@ class TaskAdapter(
         holder.title.text = task.title
         holder.description.text = task.description
         holder.checkBox.isChecked = task.isCompleted
+        val priorities = arrayOf("Low", "Medium", "High")
+
+        holder.priority.text = priorities[task.priority]
+
+        task.dueDate?.let {
+            val cal = Calendar.getInstance()
+            cal.timeInMillis = it
+            holder.dueDate.text = "Due: ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH)+1}/${cal.get(Calendar.YEAR)}"
+        } ?: run {
+            holder.dueDate.text = ""
+        }
+
     }
 
     override fun getItemCount(): Int = tasks.size

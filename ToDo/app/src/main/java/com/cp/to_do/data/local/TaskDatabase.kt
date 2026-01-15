@@ -8,7 +8,7 @@ import com.cp.to_do.data.model.Task
 
 @Database(
     entities = [Task::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class TaskDatabase : RoomDatabase() {
