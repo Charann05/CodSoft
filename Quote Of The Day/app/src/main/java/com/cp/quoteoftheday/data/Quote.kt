@@ -1,4 +1,6 @@
 package com.cp.quoteoftheday.data
 
-class Quote {
-}
+data class Quote(
+    val text: String,
+    val author: String
+)
