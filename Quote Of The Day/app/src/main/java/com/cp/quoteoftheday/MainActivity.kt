@@ -1,47 +1,44 @@
 package com.cp.quoteoftheday
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.cp.quoteoftheday.ui.theme.QuoteOfTheDayTheme
+import androidx.appcompat.app.AppCompatActivity
+import com.cp.quoteoftheday.data.QuoteRepository
+import com.cp.quoteoftheday.databinding.ActivityMainBinding
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            QuoteOfTheDayTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        showRandomQuote()
+
+        binding.btnNewQuote.setOnClickListener {
+            showRandomQuote()
+        }
+
+        binding.btnShare.setOnClickListener {
+            shareQuote()
+        }
+
+        binding.btnViewFavorites.setOnClickListener {
+            startActivity(Intent(this, FavoriteActivity::class.java))
         }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+    private fun showRandomQuote() {
+        val quote = QuoteRepository.getRandomQuote()
+        binding.tvQuote.text = "\"${quote.text}\"\n- ${quote.author}"
+    }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    QuoteOfTheDayTheme {
-        Greeting("Android")
+    private fun shareQuote() {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, binding.tvQuote.text.toString())
+        startActivity(Intent.createChooser(intent, "Share Quote"))
     }
 }
