@@ -4,4 +4,6 @@
     <string name="new_quote">New Quote</string>
     <string name="share">Share</string>
     <string name="view_favorites">View Favorites</string>
+    <string name="add_to_favorites">🩶</string>
+    <string name="no_favorites_yet">No Favorites Yet</string>
 </resources>
