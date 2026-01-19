@@ -1,20 +1,24 @@
 package com.cp.quoteoftheday
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.cp.quoteoftheday.data.QuoteRepository
+import com.cp.quoteoftheday.databinding.ActivityFavoriteBinding
 
 class FavoriteActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityFavoriteBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_favorite)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+
+        binding = ActivityFavoriteBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val favorites = QuoteRepository.getFavorites()
+
+        binding.tvFavorites.text =
+            if (favorites.isEmpty()) getString(R.string.no_favorites_yet)
+            else favorites.joinToString("\n\n") { "\"${it.text}\" — ${it.author}" }
     }
 }
