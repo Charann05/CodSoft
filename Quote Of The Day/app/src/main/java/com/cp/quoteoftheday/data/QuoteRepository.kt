@@ -2,6 +2,7 @@ package com.cp.quoteoftheday.data
 
 import android.content.Context
 import com.cp.quoteoftheday.utils.PreferenceHelper
+import java.time.LocalDate
 import kotlin.random.Random
 
 object QuoteRepository {
@@ -31,4 +32,18 @@ object QuoteRepository {
     }
 
     fun getFavorites(): List<Quote> = favoriteQuotes
+
+    fun getDailyQuote(context: Context): Quote {
+        val today = LocalDate.now().toString()
+        val savedDate = PreferenceHelper.getSavedDate(context)
+
+        return if (today == savedDate) {
+            PreferenceHelper.getDailyQuote(context)!!
+        } else {
+            val newQuote = getRandomQuote()
+            PreferenceHelper.saveDailyQuote(context, newQuote, today)
+            newQuote
+        }
+    }
+
 }

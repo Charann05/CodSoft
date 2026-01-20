@@ -10,6 +10,10 @@ object PreferenceHelper {
 
     private const val PREF_NAME = "quote_prefs"
     private const val KEY_FAVORITES = "favorites"
+    private const val KEY_DAILY_QUOTE = "daily_quote"
+    private const val KEY_DAILY_AUTHOR = "daily_author"
+    private const val KEY_DAILY_DATE = "daily_date"
+
 
     private fun getPrefs(context: Context): SharedPreferences =
         context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
@@ -28,4 +32,27 @@ object PreferenceHelper {
             Gson().fromJson(json, type)
         }
     }
+
+    fun saveDailyQuote(context: Context, quote: Quote, date: String) {
+        getPrefs(context).edit()
+            .putString(KEY_DAILY_QUOTE, quote.text)
+            .putString(KEY_DAILY_AUTHOR, quote.author)
+            .putString(KEY_DAILY_DATE, date)
+            .apply()
+    }
+
+    fun getDailyQuote(context: Context): Quote? {
+        val prefs = getPrefs(context)
+        val text = prefs.getString(KEY_DAILY_QUOTE, null)
+        val author = prefs.getString(KEY_DAILY_AUTHOR, null)
+
+        return if (text != null && author != null) {
+            Quote(0, text, author)
+        } else null
+    }
+
+    fun getSavedDate(context: Context): String? {
+        return getPrefs(context).getString(KEY_DAILY_DATE, null)
+    }
+
 }

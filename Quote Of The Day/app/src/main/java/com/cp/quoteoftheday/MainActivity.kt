@@ -17,8 +17,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        showDailyQuote()
         QuoteRepository.initFavorites(this)
-        showRandomQuote()
+        //showRandomQuote()
 
         binding.btnNewQuote.setOnClickListener {
             showRandomQuote()
@@ -41,6 +42,13 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    private fun showDailyQuote() {
+        val quote = QuoteRepository.getDailyQuote(this)
+        currentQuote = quote
+        binding.tvQuote.text = "\"${quote.text}\"\n- ${quote.author}"
+    }
+
 
     private fun showRandomQuote() {
         val quote = QuoteRepository.getRandomQuote()
