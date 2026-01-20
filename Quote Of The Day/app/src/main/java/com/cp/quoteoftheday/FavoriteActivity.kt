@@ -18,7 +18,8 @@ class FavoriteActivity : AppCompatActivity() {
         val favorites = QuoteRepository.getFavorites()
 
         binding.tvFavorites.text =
-            if (favorites.isEmpty()) getString(R.string.no_favorites_yet)
-            else favorites.joinToString("\n\n") { "\"${it.text}\" — ${it.author}" }
+            favorites.joinToString("\n\n") {
+                "• \"${it.text}\"\n   — ${it.author}"
+            }
     }
 }
