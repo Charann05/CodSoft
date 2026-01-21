@@ -4,6 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ff9f1c"
     android:orientation="vertical">
 
     <TextView
@@ -13,13 +14,15 @@
         android:text="@string/favorites"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:padding="8dp"
+        android:drawablePadding="12dp"
+        android:padding="15dp"
         android:layout_gravity="center"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#f1faee"
         android:padding="16dp">
 
         <TextView
@@ -28,6 +31,8 @@
             android:layout_height="wrap_content"
             android:text="@string/no_favorites_yet"
             android:textSize="18sp"
+            android:textStyle="bold"
+            android:padding="8dp"
             android:lineSpacingExtra="6dp"/>
 
     </ScrollView>
