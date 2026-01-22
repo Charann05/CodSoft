@@ -6,19 +6,14 @@ Built with **Kotlin** and **Room Database**, following the **MVVM architecture**
 
 ---
 
-## ✨ Features
+## Features
 
-- ✅ **Add & Edit Tasks** – Include title, description, priority, and due date  
-- ✅ **Mark Tasks Completed** – Check off tasks as you finish them  
-- ✅ **Delete Tasks** – Remove tasks you no longer need  
-- ✅ **Sort by Priority** – High → Medium → Low  
-- ✅ **Persistent Storage** – Powered by **Room Database**  
-- ✅ **MVVM Architecture** – Clean separation with **ViewModel** and **LiveData/Flow**  
+- **Add & Edit Tasks** – Include title, description, priority, and due date  
+- **Mark Tasks Completed** – Check off tasks as you finish them  
+- **Delete Tasks** – Remove tasks you no longer need  
+- **Sort by Priority** – High → Medium → Low  
+- **Persistent Storage** – Powered by **Room Database**  
+- **MVVM Architecture** – Clean separation with **ViewModel** and **LiveData/Flow**  
 
 ---
 
-## 🚀 Setup
-
-1. **Clone the repository**  
-```bash
-git clone <repository_url>
