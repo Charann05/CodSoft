@@ -31,7 +31,6 @@ class QuizActivity : AppCompatActivity() {
         tvQuestion = findViewById(R.id.tvQuestion)
         rgOptions = findViewById(R.id.rgOptions)
         btnSubmit = findViewById(R.id.btnSubmit)
-
         questions = repository.getQuestions()
         showQuestion()
 
@@ -42,7 +41,6 @@ class QuizActivity : AppCompatActivity() {
 
     private fun showQuestion() {
         val question = questions[currentQuestionIndex]
-
         tvQuestion.text = question.question
 
         for (i in 0 until rgOptions.childCount) {
@@ -56,23 +54,32 @@ class QuizActivity : AppCompatActivity() {
     private fun checkAnswerAndMoveNext() {
         val selectedId = rgOptions.checkedRadioButtonId
         if (selectedId == -1) return
+        val selectedRadioButton = findViewById<RadioButton>(selectedId)
 
-        val selectedIndex = rgOptions.indexOfChild(findViewById(selectedId))
+        val selectedIndex = when (selectedRadioButton.id) {
+            R.id.rbOption1 -> 0
+            R.id.rbOption2 -> 1
+            R.id.rbOption3 -> 2
+            R.id.rbOption4 -> 3
+            else -> -1
+        }
+
+        if (selectedIndex == -1) return
         val correctIndex = questions[currentQuestionIndex].correctAnswerIndex
-
         if (selectedIndex == correctIndex) {
             score++
         }
 
         currentQuestionIndex++
+        if (currentQuestionIndex < questions.size) {
+            showQuestion()
 
-        if (currentQuestionIndex >= questions.size) {
+        } else {
+
             val intent = Intent(this, ResultActivity::class.java)
             intent.putExtra("SCORE", score)
-            intent.putExtra("TOTAL", questions.size)
             startActivity(intent)
             finish()
         }
-
     }
 }
