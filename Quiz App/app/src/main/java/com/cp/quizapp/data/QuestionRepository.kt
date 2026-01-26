@@ -52,8 +52,18 @@ class QuestionRepository {
                 question = "Who wrote the national anthem of India?",
                 options = listOf("Sarojini Naidu", "Bankim Chandra Chatterjee", "Rabindranath Tagore", "Subhash Chandra Bose"),
                 correctAnswerIndex = 2
-            )
+            ),
+            Question(
+                question = "Which ocean is the largest in the world?",
+                options = listOf("Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"),
+                correctAnswerIndex = 3
+            ),
 
+            Question(
+                question = "Which planet is known as the Red Planet?",
+                options = listOf("Jupiter", "Venus", "Mars", "Saturn"),
+                correctAnswerIndex = 2
+            )
         )
     }
 }
