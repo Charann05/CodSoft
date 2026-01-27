@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#bfdbf7">
 
     <LinearLayout
         android:id="@+id/quizContainer"
@@ -23,6 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/question"
+            android:textColor="#022b3a"
             android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center"
@@ -37,25 +39,33 @@
                 android:id="@+id/rbOption1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/option_1"/>
+                android:text="@string/option_1"
+                android:textStyle="bold"
+                android:textColor="#022b3a"/>
 
             <RadioButton
                 android:id="@+id/rbOption2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/option_2"/>
+                android:text="@string/option_2"
+                android:textStyle="bold"
+                android:textColor="#022b3a"/>
 
             <RadioButton
                 android:id="@+id/rbOption3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/option_3"/>
+                android:text="@string/option_3"
+                android:textStyle="bold"
+                android:textColor="#022b3a"/>
 
             <RadioButton
                 android:id="@+id/rbOption4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/option_4"/>
+                android:text="@string/option_4"
+                android:textStyle="bold"
+                android:textColor="#022b3a"/>
         </RadioGroup>
 
         <Button
@@ -63,6 +73,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/submit"
+            android:textColor="#022b3a"
+            android:textStyle="bold"
+            android:backgroundTint="#1f7a8c"
             android:layout_marginTop="32dp"/>
 
     </LinearLayout>
